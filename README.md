@@ -1,2 +1,16 @@
-# Retail-sync
-PostgreSQL manages orders, inventory, billing, and other structured retail transactions, while MongoDB stores product information, customer activity, browsing history, and reviews. A Python dashboard provides sales, inventory, customer activity, and product-review analytics. 
+[ Client Browser / Web UI ]
+            |
+            v
+[ Streamlit App Server ]
+    |-- URL Routing Engine (?server=srv_1 | srv_2 | srv_3)
+    |-- Cached Connection Pool (@st.cache_resource)
+    |
+    |-- PostgreSQL Client (psycopg2)
+    |   |-- orders (Transactional Ledger)
+    |   |-- billing (Invoice Records)
+    |   |-- inventory (Stock Quantities)
+    |   `-- Cross-Table SQL Joins (Unpaid Invoices)
+    |
+    `-- MongoDB Client (pymongo)
+        |-- products (BSON Product Catalog)
+        `-- reviews (BSON Feedback Collection)
